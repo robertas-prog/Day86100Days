@@ -59,14 +59,27 @@ def delete_post(id):
 @app.route("/edit/<int:id>", methods=["GET", "POST"])
 def edit(id):
     post = Post.query.get_or_404(id)
+
     if request.method == "POST":
-        post.author = request.form.get("author","").strip()
-        post.content = request.form.get("content","").strip()
-        if not post.author or not post.content:
-            return render_template("edit.html", post=post, error="Užpildykite abu laukus."), 400
+        author = request.form.get("author", "").strip()
+        content = request.form.get("content", "").strip()
+
+        if not author or not content:
+            # NIEKO NESUTEIKIAME į post.* kol klaida
+            # Galite tiesiai perduoti formos reikšmes į šabloną:
+            return render_template("edit.html", post=post,
+                                   form_author=author,
+                                   form_content=content,
+                                   error="Užpildykite abu laukus."), 400
+
+        # Tik čia, kai validuota, perrašome modelį
+        post.author = author
+        post.content = content
         db.session.commit()
         return redirect(url_for("index"))
+
     return render_template("edit.html", post=post)
+
 
 
 

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <title>Document</title>
+</head>
+<body>
+  <nav>
+    <a href=""><p>Pagrindinis</p></a>
+    <a href=""><p>Prisijungti</p></a>
+    <a href=""><p>Atsijungti</p></a>
+  </nav>
+  <div class="main-container">
+    <h1>This and that blog</h1>
+    <form method="post" action="{{ url_for('edit', id=post.id) }}">
+      <input type="text" placeholder="Input your name" name="author" value="{{ post.author }}" required >
+      <input type="text" placeholder="What's on your mind?" name="content" value="{{ post.content }}" required >
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+</body>
+</html>
