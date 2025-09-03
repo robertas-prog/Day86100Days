@@ -56,6 +56,18 @@ def delete_post(id):
   db.session.commit()
   return redirect(url_for("index"))
 
+@app.route("/edit/<int:id>", methods=["GET", "POST"])
+def edit(id):
+    post = Post.query.get_or_404(id)
+    if request.method == "POST":
+        post.author = request.form.get("author","").strip()
+        post.content = request.form.get("content","").strip()
+        if not post.author or not post.content:
+            return render_template("edit.html", post=post, error="Užpildykite abu laukus."), 400
+        db.session.commit()
+        return redirect(url_for("index"))
+    return render_template("edit.html", post=post)
+
 
 
 if __name__ == "__main__":

@@ -40,7 +40,9 @@
             <form method="post" action="{{ url_for('delete_post', id=p.id) }}" style="display:inline">
               <button type="submit">Delete</button>
             </form>
-            <a href="">Update</a>
+            <form method="post" action="{{ url_for('edit', id=p.id) }}" style="display:inline">
+              <button type="submit">Edit</button>
+            </form>
           </td>
         </tr>
         {% else %}
